@@ -22,6 +22,10 @@
 - SNS 간편가입 및 로그인(Kakao, Naver)
 > 정기적 결제 요청
 - Spring Boot의 스케줄러를 이용한 배치 작업 처리
+> 정책에 따른 가입요금 & 환불요금 일할 계산
+- 무료체험 기간 한달 제공 고려
+- 따라서 가입요금 및 환불요금은 사용자가 요청한 해당 일자에 따라 상이
+- package com.stock.service.impl.PaymentServiceImpl.calculateAmount 참고
 <br> 
 
 ## 📍 사용기술
