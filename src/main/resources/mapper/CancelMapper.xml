@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.stock.mapper.CancelMapper">
+
+    <insert id="saveCancelPaymentInfo" parameterType="PaymentCancelVO">
+        INSERT INTO pop_payment_cancel (reserve_id, order_code, refund_amount, pg_name, refund_result_code, refund_result_message, delete_result_code, delete_result_message,
+                                        allat_fix_key, payco_order_no, complete_ymdt, when_created, when_modified)
+        VALUES(#{reserveId}, #{orderCode}, #{refundAmount}, #{pgName}, #{refundResultCode}, #{refundResultMessage}, #{deleteResultCode}, #{deleteResultMessage},
+               #{allatFixKey}, #{paycoOrderNo}, #{completeYmdt}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+
+</mapper>
