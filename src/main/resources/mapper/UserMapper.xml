@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.stock.mapper.UserMapper">
+
+    <insert id="insertUser" parameterType="UserVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pop_user (name, phone_num, user_cid, media_key, media_user_key, status)
+        VALUES(#{name}, #{phoneNum}, #{userCid}, #{mediaKey}, #{mediaUserKey}, #{status})
+    </insert>
+
+    <select id="selectUserByUserCid" resultType="UserVO" parameterType="String">
+        SELECT id, name, phone_num, user_cid, media_key, media_user_key, status, reserve_id, join_date, cancel_date
+         FROM pop_user
+        WHERE user_cid = #{userCid}
+        ORDER BY join_date DESC
+        LIMIT 1
+    </select>
+
+    <select id="selectUserByUserCidAndStatus" resultType="UserVO" parameterType="String">
+        SELECT id, name, phone_num, user_cid, media_key, media_user_key, status, reserve_id, join_date, cancel_date
+        FROM pop_user
+        WHERE user_cid = #{userCid} and status = #{status}
+        ORDER BY join_date DESC
+        LIMIT 1
+    </select>
+
+    <select id="selectUserByMediaUserKeyAndStatus" resultType="UserVO" parameterType="String">
+        SELECT *
+         FROM pop_user
+        WHERE media_user_key = #{mediaUserKey} and media_key = #{mediaKey} and status = #{status}
+        ORDER BY join_date DESC
+        LIMIT 1
+    </select>
+
+    <update id="updateJoinInfoOfUser" parameterType="userVO">
+        UPDATE pop_user
+        SET  join_date = #{joinDate}, media_key = #{mediaKey}, media_user_key = #{mediaUserKey}, status = #{status}
+        WHERE user_cid = #{userCid}
+    </update>
+
+    <update id="updateCancelInfoOfUser" parameterType="userVO">
+        UPDATE pop_user
+        SET  status = #{status}, cancel_date = #{cancelDate}
+        WHERE user_cid = #{userCid}
+    </update>
+
+    <update id="updateStatusToWait" parameterType="String">
+        UPDATE pop_user
+        SET  status = #{status}
+        WHERE user_cid = #{userCid}
+    </update>
+
+    <update id="updatePhoneOfUser" parameterType="String">
+        UPDATE pop_user
+           SET  phone_num = #{phoneNum}
+         WHERE user_cid = #{userCid}
+    </update>
+
+    <update id="saveReserveIdOfUser" parameterType="map">
+        UPDATE pop_user
+          SET  reserve_id = #{reserveId}
+        WHERE user_cid = #{userCid}
+    </update>
+
+    <select id="selectMediaKey" resultType="String" parameterType="String">
+        SELECT media_key
+         FROM pop_user
+        WHERE user_cid = #{userCid}
+    </select>
+
+
+</mapper>

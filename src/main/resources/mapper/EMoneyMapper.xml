@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.stock.mapper.EMoneyMapper">
+
+    <insert id="insertEMoneyApiResult" parameterType="EMoneyResultVO">
+        INSERT INTO pop_emoney_result (type, user_cid, result_code, result_msg, param, when_created, when_modified)
+        VALUES(#{type}, #{userCid}, #{resultCode}, #{resultMsg}, #{param}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+
+</mapper>

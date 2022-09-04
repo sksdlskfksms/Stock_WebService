@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.stock.mapper.ReserveMapper">
+
+    <insert id="insertReserve" parameterType="ReserveVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pop_reserve (user_id, user_cid, pg_name, when_created, when_modified)
+        VALUES(#{userId}, #{userCid}, #{pgName}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+
+    <select id="selectReserveById" resultType="ReserveVO" parameterType="java.lang.Long">
+       SELECT r.*
+        FROM pop_reserve as r
+        JOIN pop_user as u ON r.id = u.reserve_id
+       WHERE u.reserve_id = #{id}
+    </select>
+
+    <select id="selectReserveByUserCid" resultType="ReserveVO" parameterType="String">
+        SELECT r.*
+         FROM pop_reserve as r
+         JOIN pop_user as u ON r.id = u.reserve_id
+        WHERE u.user_cid = #{userCid}
+    </select>
+
+    <select id="selectReserveInfoList" resultType="ReserveVO" parameterType="java.lang.String">
+        SELECT r.*
+          FROM pop_reserve as r
+          JOIN pop_user as u ON r.id = u.reserve_id
+         WHERE u.join_type = #{status}
+    </select>
+
+    <update id="savePaycoReserveInfo" parameterType="PaycoReserveInfoReturnVO">
+        UPDATE pop_reserve
+           SET payco_autopayment_no = #{autoPaymentNo}, payco_autopayment_certify_key = #{autoPaymentCertifyKey},
+               complete_ymdt = #{registYmdt}, when_modified = CURRENT_TIMESTAMP
+         WHERE id = #{reserveId}
+    </update>
+
+    <update id="saveAllatReserveInfo" parameterType="AllatApproveReqVO">
+        UPDATE pop_reserve
+           SET allat_fix_key = #{sFixKey}, complete_ymdt = #{sApplyYmd}, when_modified = CURRENT_TIMESTAMP
+         WHERE id = #{reserveId}
+    </update>
+
+</mapper>

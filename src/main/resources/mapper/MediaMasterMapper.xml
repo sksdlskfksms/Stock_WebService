@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.stock.mapper.MediaMasterMapper">
+
+    <select id="selectMediaMasterByMediaKey" resultType="MediaVO" parameterType="String">
+         SELECT *
+          FROM media_mst
+         WHERE MEDIA_KEY = #{mediaKey}
+    </select>
+
+    <select id="selectMediaMasterByUserCid" resultType="MediaVO" parameterType="String">
+         SELECT *
+          FROM pop_user as u
+          JOIN media_mst as m ON m.MEDIA_KEY = u.media_key
+         WHERE u.user_cid = #{userCid}
+    </select>
+
+
+</mapper>
